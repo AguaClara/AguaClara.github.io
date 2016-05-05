@@ -4,15 +4,15 @@
   <title>Wash4All</title>
 
   <!--  Scripts-->
-  
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+
+  <script src="/js/materialize.js"></script>
+  <script src="/js/init.js"></script>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/viz.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/viz.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
@@ -30,23 +30,23 @@
       </ul>
 
       <script type="text/javascript">
-        $(function() {
-          // this will get the full URL at the address bar
-          var url = window.location.href;
-          $(".right.hide-on-med-and-down").each(function() {
-            // checks if its the same on the address bar
-            if (url == (this.href)) {
-              $(this).closest("li").addClass("active");
-            }
-          });
-          // passes on every "a" tag
-          $(".side-nav a").each(function() {
-            // checks if its the same on the address bar
-            if (url == (this.href)) {
-              $(this).closest("li").addClass("active");
-            }
-          });
-        });   
+      $(function() {
+// this will get the full URL at the address bar
+var url = window.location.href;
+$(".right.hide-on-med-and-down").each(function() {
+// checks if its the same on the address bar
+if (url == (this.href)) {
+  $(this).closest("li").addClass("active");
+}
+});
+// passes on every "a" tag
+$(".side-nav a").each(function() {
+// checks if its the same on the address bar
+if (url == (this.href)) {
+  $(this).closest("li").addClass("active");
+}
+});
+});   
       </script>
 
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -59,3 +59,5 @@
       <div class="row center">
         <h5 class="header col s12 light">Monitor the performance of AguaClara plants in Honduras in real time!</h5>
       </div>
+    </div>
+  </div>

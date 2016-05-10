@@ -33,22 +33,22 @@
 
       <script type="text/javascript">
       $(function() {
-// this will get the full URL at the address bar
-var url = window.location.href;
-$(".right.hide-on-med-and-down").each(function() {
-// checks if its the same on the address bar
-if (url == (this.href)) {
-  $(this).closest("li").addClass("active");
-}
-});
-// passes on every "a" tag
-$(".side-nav a").each(function() {
-// checks if its the same on the address bar
-if (url == (this.href)) {
-  $(this).closest("li").addClass("active");
-}
-});
-});   
+        // this will get the full URL at the address bar
+        var url = window.location.href;
+        $(".right.hide-on-med-and-down").each(function() {
+        // checks if its the same on the address bar
+        if (url == (this.href)) {
+          $(this).closest("li").addClass("active");
+        }
+        });
+        // passes on every "a" tag
+        $(".side-nav a").each(function() {
+        // checks if its the same on the address bar
+        if (url == (this.href)) {
+          $(this).closest("li").addClass("active");
+        }
+        });
+        });   
       </script>
 
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>

@@ -1,2 +1,2 @@
-# post.website
-The website used to provide visualizations to the public and engineers.
+# post.visualizations
+Visualization Website for the Plant Operations Smartphone Tracker (POST) team of AguaClara

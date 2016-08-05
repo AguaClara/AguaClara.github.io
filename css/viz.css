@@ -1,55 +1,77 @@
-svg { border: solid black 1px; }
-.bar rect { fill: #ccc; }
-.axis path { fill: none; stroke: black;}
-.axis line { stroke: black; }
-.axis text { font-size: x-small; }
+svg { 
+	/*border: solid black 1px; */
+}
+
+.bar rect { 
+	fill: #ccc; 
+}
+
+.axis path { 
+	fill: none; stroke: black;
+}
+
+.axis line { 
+	stroke: black; 
+}
+
+.axis text { 
+	font-size: x-small; 
+}
+
 .brush .extent {
   stroke: #fff;
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }
 
-
-.d3-tip {
-  pointer-events:none;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -khtml-user-select: none;    /* Konqueror */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* IE/Edge */
-  user-select: none;           /* non-prefixed version, currently
-                                  not supported by any browser */
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
+.checkboxtext{
+  font-size: 1.3em;
+  color:black;
 }
 
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
+.cb_pad{
+	padding-bottom:10px;
 }
 
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
+.sAxis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
-.d3-tip.s:after {
-  content: "\25B2";
-  margin: 0 0 1px 0;
-  top: -8px;
-  left: 0;
-  text-align: center;
+
+.sAxis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+
+.sAxis .sHalo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 8px;
+  stroke-linecap: round;
+}
+
+.sSlider .sHandle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: .5;
+  stroke-width: 1.25px;
+  cursor: crosshair;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 60px;					
+    height: 44px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    /*background: lightsteelblue;*/	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
 }

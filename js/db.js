@@ -19,8 +19,8 @@ var number_of_requested_data_points = 100;
 // and one to determine how many times to retrieve an item. 
 var number_of_returned_data_points = 0;
 
-// This is the number of things stored in localStorage that are not a row of Json data
-var number_of_non_data_storage_items = 2;
+// These are the items that retrieveAllPlantData won't retrieve
+var non_data_storage_items = ["plantName", "columnData"];
 
 function encode_fusion_table_sql(sql_string) {
 	var base_url = "https://www.googleapis.com/fusiontables/v2/";
@@ -30,25 +30,21 @@ function encode_fusion_table_sql(sql_string) {
 	return url_string
 }
 
-// Get all the local plant data. If there is no plant data locally, this will return an empty list. If you don't 
-// specify a column_string, this will return all of the columns
-function retrieveAllPlantData(column_string) {
+// Get all the local plant data.
+function retrieveAllPlantData() {
 	var plantData = [];
-	if (localStorage.length <= number_of_non_data_storage_items) {
+	if (localStorage.length == 0) {
 		return plantData
 	}
 	// Loop through selected localstorage held json strings
-	if (column_string == undefined) {
-		for ( var i = 0; i < number_of_returned_data_points; ++i ) {	
-			plantData[i] = JSON.parse(localStorage.getItem( localStorage.key( i ) ));
-		}
-	}
-	else {
-		for ( var i = 0; i < number_of_returned_data_points; ++i ) {
-			// Set default start and stop indices if left undefined
-			plantData[i] = JSON.parse(localStorage.getItem( localStorage.key( i ) ))[getColumnIndex(column_string)];
-		}
-	}
+	for ( var i = 0; i < number_of_returned_data_points; ++i ) {	
+		var key = localStorage.key( i );
+		if ($.inArray(key,non_data_storage_items) == -1) {
+			var string = localStorage.getItem( localStorage.key( i ) );
+			// console.log(string);
+			plantData[i] = json_parse(string);
+		};
+	};
 	return plantData
 }
 
@@ -64,7 +60,7 @@ function save(key, value) {
 
 // Get the index of the row arrays that columnString appears on. This relies on localStorage being populated.
 function getColumnIndex(columnString) {
-	var columnData = JSON.parse(localStorage.getItem('columnData'));
+	var columnData = json_parse(localStorage.getItem('columnData'));
 	return columnData.indexOf(column_string);
 }
 
@@ -152,7 +148,7 @@ function insertManyPlantData(plantData) {
 	for ( var i = 0, len = plantData.length; i < len; ++i ) {
 		localStorage.setItem(plantData[i].timeStarted, JSON.stringify(plantData[i]));
 	}
-	number_of_returned_data_points = localStorage.length - number_of_non_data_storage_items;
+	number_of_returned_data_points = localStorage.length - non_data_storage_items.length;
 }
 
 // Delete all plant data without losing the persistant data like plantname

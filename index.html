@@ -36,6 +36,10 @@ title: POST
 
       <script>
        
+      var isChrome = !!window.chrome && !!window.chrome.webstore;
+      if (!isChrome) {
+        alert('Esta aplicación no es compatible con tu navegador. Vaya a https://www.google.com/chrome/browser/desktop/ para descarga a Google Chrome.')
+      }
 
       $(document).ready(function() {
         submitRadioValues = function(){

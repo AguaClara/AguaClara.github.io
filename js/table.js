@@ -134,5 +134,4 @@ $(document).ready(function() {
   if (data.length > 0) {
     settable(data, null);
   }
-  floatTable();
 });

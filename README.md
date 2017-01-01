@@ -23,6 +23,7 @@ This repo is deployed through gh-pages, githubs' jekyll-based static website hos
 
 ### Editing and pushing code
 Once the repos are set up as shown in the Repo initiation stage, it's simple to push the source files and the built files online with two commits:
+
 1. Edit code in the outer Jekyll repo 
 2. Serve the website locally with the Jekyll application (`$jekyll serve`)
 3. Test the website is behaving correctly on your browser locally at http://localhost:4000

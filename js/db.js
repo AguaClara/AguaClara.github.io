@@ -8,8 +8,10 @@
 // Methods to be used from outside scripts. Clearly defined with easy to understand
 // pre- and post- conditions
 
-var table_id = "10IZcGT_2mHKS8cLOcvB_4BSj0LEFDKS5eJhPrGqE"
+var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
 var number_of_requested_data_points = 100;
+var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
+
 
 // We only know how many data points there are for a specific plant request when we actually get the response
 // but in that response there may be some duplicates that we only discover when putting into the localStorage...
@@ -25,7 +27,6 @@ var non_data_storage_items = ["plantName", "columnData"];
 function encode_fusion_table_sql(sql_string) {
 	var base_url = "https://www.googleapis.com/fusiontables/v2/";
 	var initiate_sql_query = "query?sql=";
-	var api_key = "&key=AIzaSyB9wik36h46yNJznjYjUTXHOu5py9anRFY";
 	url_string = base_url + initiate_sql_query + encodeURIComponent(sql_string) + api_key;
 	return url_string
 }

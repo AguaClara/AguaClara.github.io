@@ -3,7 +3,7 @@ layout: default
 title: POST
 ---
 
-1. Estando en un lugar con wifi u otra conexión al internet, baje tres aplicaciónes de “POST Datos,” "POST Dosis" y "POST Graficos" aquí: https://play.google.com/store/apps/developer?id=POST+Developers&hl=es
+1. Estando en un lugar con wifi u otra conexión al internet, baje tres aplicaciónes de “POST Datos,” "POST Dosis" y "POST Graficos." Encontrarlos Buscando "AguaClara" en la tienda de Google Play.
 2. Siempre con internet, abra la aplicación POST Datos, y entre en el menú de ajustes (haga click en los tres puntos en la esquina superior derecha o en el botón al fondo del celular). Haga click en "Cambiar la configuración", luego "Configurar Ajustes de Plataforma".
 3. Toque "URL" y asegura tiene:  https://post-aguaclara.appspot.com
 4. Toque “Nombre del Usuario” y entre la nombre de tu planta de [este lista](https://docs.google.com/spreadsheets/d/1cSK2sCmcchhbfj70pjhdsw7_ZATMWhYaP7TqBNZdSOk/pubhtml?gid=1281197957&single=true)  

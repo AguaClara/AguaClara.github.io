@@ -9,7 +9,7 @@
 // pre- and post- conditions
 
 var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
-var number_of_requested_data_points = 100;
+var number_of_requested_data_points = 150;
 var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
 
 

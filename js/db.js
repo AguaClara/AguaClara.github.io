@@ -9,7 +9,7 @@
 // pre- and post- conditions
 
 var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
-var number_of_requested_data_points = 100;
+var number_of_requested_data_points = 150;
 var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
 
 
@@ -90,7 +90,7 @@ function updatePlantData(onSuccess, onFailure){
 	// Get the JSON corresponding to the encoded sql string
 	$.getJSON(sql_query_url, function(json) {
 		deleteOldPlantData();
-		save('columnData', JSON.stringify(json.columns));
+		save('columnData', JSON.stringify(json.columns))
 		if (json.rows == null){
 			json.rows = [];
 			json.columns = [];

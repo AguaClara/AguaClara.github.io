@@ -90,7 +90,7 @@ function updatePlantData(onSuccess, onFailure){
 	// Get the JSON corresponding to the encoded sql string
 	$.getJSON(sql_query_url, function(json) {
 		deleteOldPlantData();
-		save('columnData', JSON.stringify(json.columns))
+		save('columnData', JSON.stringify(json.columns));
 		if (json.rows == null){
 			json.rows = [];
 			json.columns = [];

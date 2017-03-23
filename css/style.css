@@ -12,3 +12,29 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+#slide-out li {
+	padding: 0px;
+}
+
+#slide-out li:hover {
+	background-color: rgba(0,0,0,0.05);
+}
+#slide-out li>a {
+	padding: 0 30px;
+}
+
+#slide-out .collapsible-header {
+	margin: 0 0rem;
+}
+
+#slide-out .collapsible-body li {
+	width:100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+#slide-out .collapsible-body li a {
+	padding: 0 60px;
+	margin: 0px;
+}

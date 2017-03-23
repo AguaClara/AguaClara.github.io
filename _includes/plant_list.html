@@ -1,0 +1,10 @@
+<span id="plantListCollapsible"></span>
+<script type="text/javascript">
+	allPlantsDict = getAllPlantsDict();
+	var menuHTML = ''; 
+	for(var key in allPlantsDict){
+		plantName = allPlantsDict[key];
+		menuHTML +='<li><a href="#!" class="waves-effect">'+plantName+'</a>';
+	}
+	$("#plantListCollapsible").html(menuHTML);
+</script>

@@ -28,13 +28,25 @@
 	margin: 0 0rem;
 }
 
-#slide-out .collapsible-body li {
+#plantListCollapsible li {
 	width:100%;
 	padding: 0px;
 	margin: 0px;
 }
 
-#slide-out .collapsible-body li a {
+#plantListCollapsible li a {
 	padding: 0 60px;
 	margin: 0px;
+}
+
+.plantButton {
+	width:100%;
+	border:none;
+	text-align:left;
+	padding:0;
+	padding-left:60px;
+}
+
+.plantButton:hover {
+	background-color: rgba(0,0,0,0.05);
 }

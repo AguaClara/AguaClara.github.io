@@ -2,6 +2,11 @@
 	<script>
 		$(".button-collapse").sideNav();
 		$('.collapsible').collapsible();
+		var changePlant = function(d){
+			console.log(d);
+			save("plantName", d);
+			window.location.href = "/index.html";
+		};
 	</script>
 	<div class="nav-wrapper container"><a id="logo-container" href="./index.html" class="brand-logo" style="padding-left:30px;">POST</a>
 		<ul class="right">
@@ -18,7 +23,7 @@
 	<li class="no-padding">
 		<ul class="collapsible collapsible-accordion">
 			<li>
-				<a class="collapsible-header">Plant List<i class="material-icons" style="float:right; margin-right: 0px">arrow_drop_down</i></a>
+				<a class="collapsible-header active">Plant List<i class="material-icons" style="float:right; margin-right: 0px">arrow_drop_down</i></a>
 				<div class="collapsible-body">
 					<ul>
 						{% include plant_list.html %}

@@ -31,3 +31,40 @@ Once the repos are set up as shown in the Repo initiation stage, it's simple to 
 5. Cd into the _site directory to go into the inner repo. Some files will have been changed by Jekyll. You can see the changed built files with the `$git status` command.
 6. Commit the changed files and push to the master branch.
 7. Confirm Github is displaying the website correctly by visiting http://aguaclara.github.io. It might take up to 5 minutes to update.
+
+### Developing a new feature
+These steps outline the entire feature development cycle:
+
+1. Go to development branch on AguaClara.github.io repo
+
+`git checkout development`
+
+2. Make sure your local branch is up to date
+
+`git pull origin development`
+
+3. Create a new feature branch off of the development branch
+
+`git checkout -b yourname_featurename development`
+
+4. Work on your feature. Commit often, with useful commit messages!
+
+`git add -all`
+
+`git commit -m “yourmessage”`
+
+5. When your feature is finished, push to the remote branch of your feature
+
+`git push -u origin yourname_featurename`
+
+6. Go to our git project on your desktop, click “new pull request”
+
+7. Set “base” to development, set “compare” to your feature, review the comparison it shows you
+
+8. In the body of your pull request, describe your feature, and mention the members of your team. This will notify them that you’ve submitted a pull request for them to review.
+
+9. If everything checks out, a team member can accept the pull request and merge the two branches. If the merge can be completed automatically, you can do it straight from the web. If not, click the (i) for more info on what to do, or follow the instructions towards the bottom of this tutorial.
+
+10. After a successful merge, delete the old feature branch
+
+`git branch -d yourname_featurename`

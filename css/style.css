@@ -6,6 +6,16 @@
  * Made By MaterializeCSS.com
  */
 
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
 .icon-block {
   padding: 0 15px;
 }
@@ -49,4 +59,26 @@
 
 .plantButton:hover {
 	background-color: rgba(0,0,0,0.05);
+}
+
+.tabs {
+	overflow: hidden;
+}
+
+.tabs .tab a {
+	color: #283593;
+	opacity: 0.7;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+	color: #283593;
+	opacity:1;
+}
+
+.tabs .indicator {
+	background-color: #283593;
+}
+
+.tab-container {
+	height:500px;
 }

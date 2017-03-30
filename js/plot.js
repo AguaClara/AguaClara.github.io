@@ -227,11 +227,11 @@ function drawLines(data, xScale, yScale, attr_name){
     });  
 
 
-  //Draw the line graph for each plant with code in codelist
+  //Draw the line graph
   svg.selectAll("#linegraphline"+attr_name).remove();
   if (lineGen(data)!=null){
     //Check if this code was selected in order to draw it
-    plantCode = data[0].plant;
+    //plantCode = data[0].plant;
 
       svg.append('g').append("path")
         .attr('d', lineGen(data))

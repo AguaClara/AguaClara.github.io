@@ -9,7 +9,7 @@
 // pre- and post- conditions
 
 var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
-var number_of_requested_data_points = 150;
+var number_of_requested_data_points = 100;
 var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
 
 
@@ -82,7 +82,7 @@ function makeDictionary(rowArray, columnArray) {
 // Asynchronous function to download plant data and store it locally. Input callback function. 
 // The onSuccess(data) function must take in an array of data objects.
 // TODO: onFailure. 
-function updatePlantData(onSuccess, onFailure){
+function updatePlantData(onSuccess){
 	var plantName = getPlantName();
 	var sql_query = "SELECT * FROM " + table_id + " WHERE plant=" + "'" + plantName + "'" + " ORDER BY timeFinished DESC LIMIT " + number_of_requested_data_points;
 	sql_query_url = encode_fusion_table_sql(sql_query);
@@ -105,7 +105,6 @@ function updatePlantData(onSuccess, onFailure){
 	})
 	.fail(function() {
 		alert('Could not sync data. Data sync was not successful and old data is preserved.')
-		onFailure();
 		$('#spinnerDestination').html("");
 	});
 }
@@ -113,36 +112,6 @@ function updatePlantData(onSuccess, onFailure){
 // ----------------------------------------Private Methods/script------------------------------------------
 // This part of the script is used internally. 
 
-// Initialize the sync button
-function connectSyncButton() {
-	$('#sync-viz').click(function() {
-		var codeList = [getPlantName()];
-		addSpinner('#spinnerDestination');
-		updatePlantData(visualize, codeList);
-	});
-	$('#sync-table').click(function(){
-		var codeList = [getPlantName()];
-		addSpinner('#spinnerDestination');
-		updatePlantData(settable, codeList);
-	});
-}
-
-/*Add a beautiful Materialize loading spinner to the page!*/
-function addSpinner(spinnerDest){
-	spinnerCode = ''+
-		'<div class="preloader-wrapper small active">'+ 
-          '<div class="spinner-layer spinner-green-only" >'+
-            '<div class="circle-clipper left">'+
-              '<div class="circle"></div>'+
-            '</div><div class="gap-patch">' +
-              '<div class="circle"></div>'+
-            '</div><div class="circle-clipper right">'+
-              '<div class="circle"></div>'+
-            '</div>'+
-          '</div>'+
-        '</div>';
-	$(spinnerDest).html(spinnerCode);
-}
 
 // Inserts a list of plant data records into local storage
 function insertManyPlantData(plantData) {

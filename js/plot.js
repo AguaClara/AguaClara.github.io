@@ -1,3 +1,7 @@
+/*********************************************************************
+    This script handles all plotting
+*********************************************************************/
+
 var es_ES = {
   "decimal": ",",
   "thousands": ".",
@@ -83,24 +87,22 @@ function makeCheckboxes(){
   return selected;
 }
 
-// visualize function sorts the data and redraws the plot. To be used when the localStorage is updated. 
-function visualize(data, codeList) { 
+
+/* Sort data and redraw the plot. To be used when the localStorage is updated.
+ *     
+ *   data<Object array>: 
+ *     An array of plant data records returned by a query to FusionTables
+ */
+function visualize(data) { 
   // empty any previous plot
   $('#plot').empty();
   // sort data by type
   data = data.filter(function(elem){return elem["purpose"] == purposeTag;}) //clear out dataless entries
-  /*for(var key in dataTypes){
-    //Don't include anything with a null field as visualization will morph with switches b/n types
-    data = data.filter(function(elem){return !isNaN(elem[key]) && elem[key]!=null && elem[key]!="NaN" && elem[key]!=""});
-  }
-  */
-  // data = data.filter(function(elem){return ($.inArray(elem.plant, codeList)>-1) ;});
   data = data.sort(sortByDateAscending);
-  dataSave =data; //scoping is very important here!! GLOBAL VARIABLE
-
 
   colors = d3.scale.category10().domain( Object.keys(dataTypes) );
 
+  //no data, no plot
   if (data.length==0){
     height=0;width=0;
   }
@@ -122,11 +124,11 @@ function visualize(data, codeList) {
 
   preSelectedItem = makeCheckboxes();
   matches = [preSelectedItem];
-  drawPlot(dataSave, getPlantName(), matches); 
-  respondToCheckBox(codeList);
+  drawPlot(data); 
+  respondToCheckBox(data);
 }
 
-/* Sort input data by date .............................................*/
+/* Sort input data by date */
 function sortByDateAscending(a, b) {
   // Dates will be cast to numbers automagically:
   return new Date(a.timeFinished) - new Date(b.timeFinished);
@@ -207,11 +209,11 @@ drawSecondYAxis = function(yScale, attr_name){
     .attr("fill",  colors(attr_name));
 }
 
-/* Make the line graph .................................................*/
-function drawLines(data, xScale, yScale, attr_name, codeList, second_attr){
-  if (second_attr == undefined) {
+/* Make the line graph */
+function drawLines(data, xScale, yScale, attr_name){
+  /*if (second_attr == undefined) {
     second_attr = null;
-  }
+  }*/
 
   var lineGen = d3.svg.line()
     .x(function(d) {
@@ -244,26 +246,26 @@ function drawLines(data, xScale, yScale, attr_name, codeList, second_attr){
 
 //if the same units, we want to know so we can use the same scale
 //codelist has two items and they are the same
-function isSameUnits(codelist, units){
-  return codelist.length==2 && units[codelist[0]]==units[codelist[1]];
+function isSameUnits(){
+  return matches.length==2 && units[matches[0]]==units[matches[1]];
 }
 
 //return the name of the field that has the larger scale
-function hasMaxScale(data, codelist){
-  max1 = d3.max(data, function (d) {if (!isNaN(d[codelist[0]])){return d[codelist[0]]; }});
-  max2 = d3.max(data, function (d) {if (!isNaN(d[codelist[1]])){return d[codelist[1]]; }});
-  if(max1 > max2){return codelist[0];} 
-  else if(max2 > max1){return codelist[1];}
-  else if(max1==max2 && max1!=undefined){return codelist[0];} 
-  else if(max1!=undefined && max2==undefined){return codelist[0];}//Do separately because of awful JS handling of null type
-  else if(max1==undefined && max2!=undefined){return codelist[1];}
+function hasMaxScale(data){
+  max1 = d3.max(data, function (d) {if (!isNaN(d[matches[0]])){return d[matches[0]]; }});
+  max2 = d3.max(data, function (d) {if (!isNaN(d[matches[1]])){return d[matches[1]]; }});
+  if(max1 > max2){return matches[0];} 
+  else if(max2 > max1){return matches[1];}
+  else if(max1==max2 && max1!=undefined){return matches[0];} 
+  else if(max1!=undefined && max2==undefined){return matches[0];}//Do separately because of awful JS handling of null type
+  else if(max1==undefined && max2!=undefined){return matches[1];}
   return null;
 }
 
-/* code = 
- * selectedList = len 1 or 2 of checkboxes that have been checked
+/* 
+ *  
  */
-function drawPlot(data, code, selectedList, codeList){
+function drawPlot(data){
   svg.selectAll(".axis").remove();
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
@@ -281,35 +283,35 @@ function drawPlot(data, code, selectedList, codeList){
   drawXAxis(xScale);
 
   //Both selected are in the same units. Standardize the scale
-  if (isSameUnits(selectedList, units)){
-    attr1 = selectedList[0];
-    attr2 = selectedList[1];
-    maxField = hasMaxScale(data, selectedList); //ID of the scale with the larger range.
+  if (isSameUnits(matches, units)){
+    attr1 = matches[0];
+    attr2 = matches[1];
+    maxField = hasMaxScale(data); //ID of the scale with the larger range.
 
     if (maxField!=null){
       yScale = makeYScale(data, maxField); 
       drawYAxis(yScale, attr1);
-      drawLines(data, xScale, yScale, attr1, codeList);
+      drawLines(data, xScale, yScale, attr1);
 
       yScale2 = makeYScale(data, maxField);
       drawSecondYAxis(yScale2, attr2);
-      drawLines(data, xScale, yScale2, attr2, codeList);
+      drawLines(data, xScale, yScale2, attr2);
     }
   }
   // Different units, so keep whatever scale the unit has alone
-  else if (selectedList.length>=1){
-    attr1 = selectedList[0];
+  else if (matches.length>=1){
+    attr1 = matches[0];
 
     yScale = makeYScale(data, attr1);
     drawYAxis(yScale, attr1);
-    drawLines(data, xScale, yScale, attr1, codeList);
+    drawLines(data, xScale, yScale, attr1);
 
-    if (selectedList.length==2){
-      attr2 = selectedList[1];
+    if (matches.length==2){
+      attr2 = matches[1];
 
       yScale2 = makeYScale(data, attr2);
       drawSecondYAxis(yScale2, attr2);
-      drawLines(data, xScale, yScale2, attr2, codeList);
+      drawLines(data, xScale, yScale2, attr2);
     }
     else {
       attr2 = null;
@@ -509,7 +511,7 @@ function drawTooltip(value, dates, data) {
   }
 }
 
-function respondToCheckBox(codeList){
+function respondToCheckBox(data){
   $(".filled-in").on("click", function() {
     if ($.inArray(this.value, matches)==-1){
       matches.push(this.value);
@@ -527,31 +529,6 @@ function respondToCheckBox(codeList){
       $('#'+m).prop("checked", true);
     });
 
-    drawPlot(filtered, getPlantName(), matches, codeList);
+    drawPlot(data);
   });
 }
-
-function initViz(codeList){
-  data = retrieveAllPlantData();
-  if (data.length > 0) {
-    visualize(data, codeList);
-  }
-}
-
-// function initTracking(){
-//   window.analytics.startTrackerWithId('UA-76711924-2');
-// }
-
-//with callbakc 
-//updatePlantData();
-
-
-$(document).ready(function() { 
-  //Hardcoded to just be Moroceli for now...
-  // var codeList = [askForPlantName()]; //list of currently chosen plants (by code)
-  // connectSyncButton();
-  // initViz(codeList);
-});
-
-//Wouldn't it be cool if they could sweep a vertical bar over the data and 
-//see what the exact values were?

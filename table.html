@@ -9,12 +9,6 @@ title: POST
       <br><br>
       <div class="row center">
         <h4 id="datosHeader"></h4>
-        <script>
-        var pname = getPlantName();
-        if(pname != null){$("#datosHeader").html("Datos Sobre la Planta de "+pname);}
-        else{$("#datosHeader").html("Datos Sobre la Planta");}
-
-        </script>
         <h5 class="header col s12 light">Selecciona lo que desea visualizar.</h5>
         <h5 class="header col s12 light">Explora las tablas de datos de los últimos 7 días.</h5>
         
@@ -26,7 +20,13 @@ title: POST
         </div>
       </div>       
     </div>
-      
+    <script>
+
+    $(document).ready(function() {
+      addDatosHeader();
+    });
+    
+    </script>  
     <h5 class="header col 12 light-blue-text center">Datos de la Planta</h5><br/>
     <div class="container" id = "container"></div>
     <br/><br/>

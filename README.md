@@ -11,8 +11,8 @@ This repo is deployed through gh-pages, githubs' jekyll-based static website hos
 3. Switch to the development branch
 4. Make a directory named "_site" in the cloned repo (this folder is already in the .gitignore, so it shouldn't be tracked by the current repo.
 5. Clone the repo into the _site directory and make sure the _site directory is the root folder for that repo. 
-6. You should be in the _site directory now, so ensure your branch is switched over to master. 
-7. Switch the outer git repo over to development. Becuase the _site directory is in the gitignore, the inner repo shouldn't be affected. 
+6. cd into the new inner repo, ensure that it is on the master branch
+7. cd to the outer repo and ensure that it is on the development branch. 
 8. By the end, you should have the following folder structure: 
 .
 - _config.yml

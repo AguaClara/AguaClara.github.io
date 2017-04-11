@@ -28,50 +28,15 @@
       <form method="post" action=".">
         <div id="allPlantsDropDown"> 
         </div>
-        
-
         <script>
          
-          var isChrome = !!window.chrome && !!window.chrome.webstore;
-          if (!isChrome) {
-            alert('Disculpe, esta aplicación no es apoyada en el navegador suyo. Haga el favor de bajar y instalar el navegador Google Chrome desde https://www.google.com/chrome/browser/desktop/');
-            window.open('https://www.google.com/chrome/browser/desktop/', '_blank');
-          }
-
-          $(document).ready(function() {
-            submitRadioValues = function(){
-              plantCode = $('input[name="plantSelection"]:checked').val();
-              save("plantName", plantCode);
-              $("#allPlantsDropDown").html("");
-              connectSyncButton();
-              codeList = [plantCode];
-              initViz(codeList);
-              $("#datosHeader").html("Datos Sobre la Planta de "+plantCode);
-              $("#syncButtonDiv").html("<a id='sync-viz' class='waves-effect waves-light btn'>Sincronizar</a>");
-              connectSyncButton();
-              addSpinner('#spinnerDestination');
-              updatePlantData(visualize, codeList);
-              $("#selectPrompt").html("");
-            }
-
-
-            if (getPlantName()==null){
-              window.location.replace("/settings.html");
-
-            }else{
-              $("#selectPrompt").html("");
-              $("#syncButtonDiv").html("<a id='sync-viz' class='waves-effect waves-light btn'>Sincronizar</a>");
-          var codeList = [getPlantName()]; //list of currently chosen plants (by code)
-          connectSyncButton();
-          initViz(codeList);
-          addSpinner('#spinnerDestination');
-          updatePlantData(visualize, codeList);
-        }
-      });
+        $(document).ready(function() {
+          addDatosHeader();
+          checkBrowser();
+          checkPlantSelection();
+        });
           
     </script>
-
-
     <div class="row center" id="syncButtonDiv"><a id='sync-viz' class="waves-effect waves-light btn">Sincronizar</a></div>
     
     <div class="row center" id="spinnerDestination">

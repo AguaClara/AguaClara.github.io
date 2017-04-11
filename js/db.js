@@ -97,6 +97,7 @@ function updatePlantData(onSuccess){
 		}
 		// Save plant data into the local storage
 		var plantDataDictArray = makeDictionary(json.rows, json.columns);
+		plantDataDictArray = filterExtremes(plantDataDictArray);
 		number_of_returned_data_points = json.rows.length;
 		insertManyPlantData(plantDataDictArray);
 		// Call the callback and use the retrieve function to get plantdata
@@ -146,4 +147,65 @@ function getAllPlantsDict(){
 		"snic":"San Nicolas", 
 		"tam":"Tamara"
 	}
+};
+
+function filterExtremes(plantDataDictArray){
+//Raw
+var sum = 0;
+var sumsq = 0;
+for (var i=0; i<plantDataDictArray.length; ++i){
+	if (!isNaN(plantDataDictArray[i].rawWaterTurbidity)) {
+		sum += Number(plantDataDictArray[i].rawWaterTurbidity);
+		sumsq+= Number(plantDataDictArray[i].rawWaterTurbidity)*Number(plantDataDictArray[i].rawWaterTurbidity);
+	}
+}
+var l = plantDataDictArray.length;
+var mean = sum/l; 
+var variance = sumsq / l - mean*mean;
+var sd = Math.sqrt(variance);
+for(var i=plantDataDictArray.length;i--;) {
+	if(Number(plantDataDictArray[i].rawWaterTurbidity) < mean - 3*sd || Number(plantDataDictArray[i].rawWaterTurbidity) > mean + 3*sd){
+		plantDataDictArray.splice(i,1);
+	}
+}
+
+//Settled
+var sum2 = 0;
+var sumsq2 = 0;
+for (var i=0; i<plantDataDictArray.length; ++i){
+	if (!isNaN(plantDataDictArray[i].settledWaterTurbidity)) {
+		sum2 += Number(plantDataDictArray[i].settledWaterTurbidity);
+		sumsq2+= Number(plantDataDictArray[i].settledWaterTurbidity)*Number(plantDataDictArray[i].settledWaterTurbidity);
+	}
+}
+var l2 = plantDataDictArray.length;
+var mean2 = sum2/l2; 
+var variance2 = sumsq2 / l2 - mean2*mean2;
+var sd2 = Math.sqrt(variance2);
+for(var i=plantDataDictArray.length;i--;) {
+	if(Number(plantDataDictArray[i].settledWaterTurbidity) < mean2 - 3*sd2 || Number(plantDataDictArray[i].settledWaterTurbidity) > mean2 + 3*sd2){
+		plantDataDictArray.splice(i,1);
+	}
+}
+
+//Filtered
+var sum3 = 0;
+var sumsq3 = 0;
+for (var i=0; i<plantDataDictArray.length; ++i){
+	if (!isNaN(plantDataDictArray[i].filteredWaterTurbidity)) {
+		sum3 += Number(plantDataDictArray[i].filteredWaterTurbidity);
+		sumsq3+= Number(plantDataDictArray[i].filteredWaterTurbidity)*Number(plantDataDictArray[i].filteredWaterTurbidity);
+	}
+}
+var l3 = plantDataDictArray.length;
+var mean3 = sum3/l3; 
+var variance3 = sumsq3 / l3 - mean3*mean3;
+var sd3 = Math.sqrt(variance3);
+for(var i=plantDataDictArray.length;i--;) {
+	if(Number(plantDataDictArray[i].filteredWaterTurbidity) < mean3 - 3*sd3 || Number(plantDataDictArray[i].filteredWaterTurbidity) > mean3 + 3*sd3){
+		plantDataDictArray.splice(i,1);
+	}
+}
+
+return plantDataDictArray;
 };

@@ -8,18 +8,19 @@ This repo is deployed through gh-pages, githubs' jekyll-based static website hos
 
 1. Clone the repo into a folder
 2. cd into the cloned repo
-3. Make a directory named "_site" in the cloned repo (this folder is already in the .gitignore, so it shouldn't be tracked by the current repo.
-4. Clone the repo into the _site directory and make sure the _site directory is the root folder for that repo. 
-5. You should be in the _site directory now, so ensure your branch is switched over to master. 
-6. Switch the outer git repo over to development. Becuase the _site directory is in the gitignore, the inner repo shouldn't be affected. 
-7. By the end, you should have the following folder structure: 
+3. Switch to the development branch
+4. Make a directory named "_site" in the cloned repo (this folder is already in the .gitignore, so it shouldn't be tracked by the current repo.
+5. Clone the repo into the _site directory and make sure the _site directory is the root folder for that repo. 
+6. You should be in the _site directory now, so ensure your branch is switched over to master. 
+7. Switch the outer git repo over to development. Becuase the _site directory is in the gitignore, the inner repo shouldn't be affected. 
+8. By the end, you should have the following folder structure: 
 .
-+-- _config.yml
-+-- \<other Jekyll source directories>
-+-- _site
-|   +-- \<another git repo set to the master branch>
-+-- index.html
-+-- .git \<this outer git repo is set to the development branch>
+- _config.yml
+- \<other Jekyll source directories>
+- _site  
+   - \<another git repo set to the master branch>  
+- index.html
+- .git \<this outer git repo is set to the development branch>
 
 ### Editing and pushing code
 Once the repos are set up as shown in the Repo initiation stage, it's simple to push the source files and the built files online with two commits:

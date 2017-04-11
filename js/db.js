@@ -98,7 +98,7 @@ function updatePlantData(onSuccess){
 		// Save plant data into the local storage
 		var plantDataDictArray = makeDictionary(json.rows, json.columns);
 		plantDataDictArray = filterExtremes(plantDataDictArray);
-		number_of_returned_data_points = json.rows.length;
+		number_of_returned_data_points = plantDataDictArray.length;
 		insertManyPlantData(plantDataDictArray);
 		// Call the callback and use the retrieve function to get plantdata
 		onSuccess(retrieveAllPlantData(),plantName);

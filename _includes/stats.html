@@ -1,0 +1,57 @@
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <div class="row center">
+        <h4 id="datosHeader"></h4>
+        <script>
+          var pname = getPlantName();
+          if(pname != null){$("#datosHeader").html("Datos Sobre la Planta de "+pname);}
+          else{$("#datosHeader").html("Datos Sobre la Planta");}
+          
+        </script>
+      </div>
+      <div id="headerContent"></div>
+      <div class="container">
+        <div id="plantNumber"></div>
+        <div id="construction"></div>
+        <div id="inauguration"></div>
+        <div id="flowRate"></div>
+        <div id="population"></div>
+        <div id="implementation"></div>
+        <div class="row center"> 
+        </div>
+      </div>       
+    </div>
+
+    <div class="container">
+      <div class="section">
+        <div id="plantNumber"></div>
+        <div id="construction"></div>
+        <div id="inauguration"></div>
+        <div id="flowRate"></div>
+        <div id="population"></div>
+        <div id="implementation"></div>
+      </div>
+      <h5 class="header col s12 light" id="selectPrompt"></h5>
+      <form method="post" action=".">
+        <div id="allPlantsDropDown"> 
+        </div>
+        <script>
+         
+        $(document).ready(function() {
+          addDatosHeader();
+          checkBrowser();
+          checkPlantSelection();
+          makePlantStats();
+        });
+          
+    </script>
+    <div class="row center" id="syncButtonDiv"><a id='sync-viz' class="waves-effect waves-light btn">Sincronizar</a></div>
+    
+    <div class="row center" id="spinnerDestination">
+    </div>
+
+  </div>
+  
+  <div class="section"></div>
+</div>

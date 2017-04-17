@@ -106,3 +106,21 @@ function addPlantDropdown(){
 	dropdownHTML+='<br/><a class="waves-effect waves-light btn" id="nameSubmit" onClick="submitRadioValues()">Enviar</a>';
 	$("#allPlantsDropDown").html(dropdownHTML);
 }
+
+/*stats.html--------------------------------------------------------------*/
+
+function makePlantStats(){
+	var pname = getPlantName();
+	if(pname != null){
+		stats=getPlantStats(pname);
+		$("#plantNumber").html("Planta numero: "+stats.plantNumber);
+		$("#construction").html("Comenzó la construcción: "+stats.constructionStart);
+		$("#inauguration").html("Inauguración: "+stats.inauguration);
+		$("#flowRate").html("Caudal: "+stats.flowRate);
+		$("#population").html("Población servido: "+stats.populationServed);
+		$("#implementation").html("Implementado por: "+stats.implementationPartner);
+	}
+	else {
+		$("#datosHeader").html("Datos Sobre la Planta");
+	}
+}

@@ -9,8 +9,11 @@
 // pre- and post- conditions
 
 var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
-var number_of_requested_data_points = 100;
 var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
+var number_of_requested_data_points = 100;
+
+//controls the filter function. options are {"one_order_magnitude","two_order_magnitude","three_std","six_std","ten_std"}
+var filterFunc = "three_std"
 
 
 // We only know how many data points there are for a specific plant request when we actually get the response
@@ -149,26 +152,44 @@ function getAllPlantsDict(){
 	}
 };
 
+// passed as a filter guard in filterExtremes. Control this by changing the global [filterFunc] variable
+function checkSanity(datum){
+	var guards = {
+		"one_order_magnitude":datum[this.param] <= this.mean*10,
+		"two_order_magnitude":datum[this.param] <= this.mean*100,
+		"three_std":(datum[this.param] >= this.mean - 3.0*this.sd) && (datum[this.param] <= this.mean + 3.0*this.sd),
+		"six_std":(datum[this.param] >= this.mean - 6.0*this.sd) && (datum[this.param] <= this.mean + 6.0*this.sd),
+		"ten_std":(datum[this.param] >= this.mean - 10.0*this.sd) && (datum[this.param] <= this.mean + 10.0*this.sd),
+	}
+	//check boundaries, skip if NaN
+	if ( isNaN(datum[this.param]) || guards[filterFunc]){
+		return true;
+	}
+	//log removed values
+	else {
+		console.log("removed " + this.param + "=" + datum[this.param] + " --> above or below " + filterFunc)
+	}
+}
+
 function filterExtremes(plantDataDictArray){
-var params = ['rawWaterTurbidity', 'settledWaterTurbidity', 'filteredWaterTurbidity'];
-params.forEach(function(param) {
-	var sum = 0;
-	var sumsq = 0;
-	for (var i = 0; i<plantDataDictArray.length; ++i){
-		if (!isNaN(plantDataDictArray[i][param])) {
-			sum += Number(plantDataDictArray[i][param]);
-			sumsq += Number(plantDataDictArray[i][param])*Number(plantDataDictArray[i][param]);
+	var params = ['rawWaterTurbidity', 'settledWaterTurbidity', 'filteredWaterTurbidity'];
+
+	params.forEach(function(param) {
+		var sum = 0;
+		var sumsq = 0;
+		var l = 1
+		for (var i = 0; i<plantDataDictArray.length; ++i){
+			if (!isNaN(plantDataDictArray[i][param])) {
+				sum += Number(plantDataDictArray[i][param]);
+				sumsq += Number(plantDataDictArray[i][param])*Number(plantDataDictArray[i][param]);
+				l += 1
+			}
 		}
-	}
-	var l = plantDataDictArray.length;
-	var mean = sum/l; 		
-	var variance = sumsq / l - mean*mean;
-	var sd = Math.sqrt(variance);
-	for(var i=plantDataDictArray.length;i--;) {
-		if(Number(plantDataDictArray[i][param]) < mean - 3*sd || Number(plantDataDictArray[i][param]) > mean + 3*sd){
-			plantDataDictArray.splice(i,1);
-		}
-	}
-})
-return plantDataDictArray;
+		var mean = sum/l; 		
+		var variance = sumsq / l - mean*mean;
+		var sd = Math.sqrt(variance);
+		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
+	})
+
+	return plantDataDictArray;
 };

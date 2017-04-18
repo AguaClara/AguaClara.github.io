@@ -2,13 +2,28 @@ var plantName = {
   "aga":"Agalteca",
   "ala":"Alauca",
   "ati":"Atima",
-  "ccom":"Cuatro Comunidades" ,
+  "ccom":"CuatroComunidades" ,
   "doto":"Otoro",
   "mar1":"Marcala",
   "moro":"Moroceli",
-  "smat":"San Matias",
-  "snic":"San Nicolas",
+  "smat":"Matias",
+  "snic":"SanNicolas",
   "tam":"Tamara"
+}
+
+var plantValues = {
+  "Agalteca":1,
+  "Alauca":1,
+  "Atima":10,
+  "CuatroComunidades":11 ,
+  "Otoro":13,
+  "LasVegas":1,
+  "Marcala":1,
+  "Moroceli":8,
+  "Matias":12,
+  "SanNicolas":15,
+  "SanJuanGuarita":14,
+  "Tamara":16
 }
 
 var monthName = ["enero", "enero", "feb", "mar", "abr", "mayo", "junio", "julio", "ago", "sep", "oct", "nov", "dic"]
@@ -26,7 +41,6 @@ var monthFullName = {"enero":"Enero",
   "dic":"Diciembre"
 }
 
-
 function handleAuthClick(event) {
   var url = "https://script.google.com/macros/s/AKfycbwlZ52dywp9z84YESSuV8AMTFL1QhLXg8-F9--ZjGaYKA7c5T2W/exec?callback=ctrlq&plant=";
   var plant = getPlantName();
@@ -38,6 +52,13 @@ function handleAuthClick(event) {
     method: "GET",
     dataType: "jsonp"
   });
+}
+
+function goToFusionTables(){
+  var url = "https://fusiontables.google.com/DataSource?docid=1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD#rows:id=";
+  var plant = getPlantName();
+  url += plantValues[plant];
+  window.location.replace(url);
 }
 
 function ctrlq(e) {

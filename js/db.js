@@ -12,8 +12,8 @@ var table_id = "1Sk13vckXZIuOaokQ6tbOkHjRAthBFF7FkgsGaSjD"
 var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
 var number_of_requested_data_points = 100;
 
-//controls the filter function. options are {"one_order_magnitude","two_order_magnitude","three_std","six_std","ten_std"}
-var filterFunc = "three_std"
+//controls the filter function. options are {"none",one_order_magnitude","two_order_magnitude","three_std","six_std","ten_std"}
+var filterFunc = "six_std"
 
 
 // We only know how many data points there are for a specific plant request when we actually get the response
@@ -155,6 +155,7 @@ function getAllPlantsDict(){
 // passed as a filter guard in filterExtremes. Control this by changing the global [filterFunc] variable
 function checkSanity(datum){
 	var guards = {
+		"none": true,
 		"one_order_magnitude":datum[this.param] <= this.mean*10,
 		"two_order_magnitude":datum[this.param] <= this.mean*100,
 		"three_std":(datum[this.param] >= this.mean - 3.0*this.sd) && (datum[this.param] <= this.mean + 3.0*this.sd),
@@ -190,6 +191,5 @@ function filterExtremes(plantDataDictArray){
 		var sd = Math.sqrt(variance);
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
 	})
-
 	return plantDataDictArray;
 };

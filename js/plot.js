@@ -58,7 +58,7 @@ var div2;
 
 /* Create plot .........................................................*/
 var height = 350;
-var width = 290;
+var width = 500;
 var plot_padding_right = 45;
 var plot_padding_left = 45;
 var plot_padding_bottom = 72;
@@ -99,6 +99,7 @@ function visualize(data) {
   // sort data by type
   data = data.filter(function(elem){return elem["purpose"] == purposeTag;}) //clear out dataless entries
   data = data.sort(sortByDateAscending);
+  dataSave = data
 
   colors = d3.scale.category10().domain( Object.keys(dataTypes) );
 
@@ -107,6 +108,7 @@ function visualize(data) {
     height=0;width=0;
   }
   svg = d3.select("#plot").append("svg")
+    .attr("id","chart")
     .attr("height", height)
     .attr("width", width);
   if (data.length != 0){
@@ -531,4 +533,17 @@ function respondToCheckBox(data){
 
     drawPlot(data);
   });
+}
+
+d3.select(window).on('resize', resize); 
+
+function resize() {
+    // update width
+    width = parseInt(d3.select('#plot').style('width'), 10);
+    d3.select('#chart').style('width',width);
+
+    // resize the chart
+    drawPlot(dataSave);
+
+
 }

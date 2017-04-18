@@ -142,13 +142,15 @@ function getAllPlantsDict(){
 		"aga":"Agalteca", 
 		"ala":"Alauca",
 		"ati":"Atima", 
-		"ccom":"Cuatro Comunidades", 
+		"ccom":"CuatroComunidades", 
 		"doto":"Otoro", 
 		"mar1":"Marcala", 
 		"moro":"Moroceli", 
-		"smat":"San Matias", 
-		"snic":"San Nicolas", 
-		"tam":"Tamara"
+		"smat":"Matias", 
+		"snic":"SanNicolas", 
+		"tam":"Tamara",
+		"lasv":"LasVegas",
+		"sjg":"SanJuanGuarita"
 	}
 };
 

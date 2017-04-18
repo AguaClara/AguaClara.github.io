@@ -40,13 +40,13 @@ var units = {
  "settledWaterTurbidity":"NTU",
  "coagulantDose":"mg/L",
  "flowRate":"L/s",
- "filteredWaterTurbidity":"NTU"
+ "filteredWaterTurbidity1":"NTU"
 };
 
 var dataTypes = {
  "rawWaterTurbidity":"Turbiedad de agua cruda",
  "settledWaterTurbidity":"Turbiedad de agua decantada",
- "filteredWaterTurbidity":"Turbiedad de agua filtrada",
+ "filteredWaterTurbidity1":"Turbiedad de agua filtrada",
  "coagulantDose":"Dosis de coagulantes" 
 };
 
@@ -371,7 +371,6 @@ function drawSlider(data){
       .duration(750)
       .call(brush.extent([xMin,xMin]))
       .call(brush.event);
-
   //get current value of slider, snap to nearest date, draw focus bars
   function brushed() {
     var value = brush.extent()[0];

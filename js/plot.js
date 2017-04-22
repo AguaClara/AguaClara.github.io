@@ -128,6 +128,7 @@ function visualize(data) {
   matches = [preSelectedItem];
   drawPlot(data); 
   respondToCheckBox(data);
+  resize();
 }
 
 /* Sort input data by date */
@@ -244,7 +245,20 @@ function drawLines(data, xScale, yScale, attr_name){
         .attr('fill', 'none')
         .attr("id", "linegraphline"+attr_name);
   }  
-}       
+}
+
+function drawStandards(xScale, yScale){
+  svg.append('g').append("line")
+        .style("stroke", "black")  // colour the line
+        .attr("x1", plot_padding_left)     // x position of the first end of the line
+        .attr("y1", yScale(.3))      // y position of the first end of the line
+        .attr("x2", width-plot_padding_right)     // x position of the second end of the line
+        .attr("y2", yScale(.3));    // y position of the second end of the line
+  svg.append('g').append('text')
+    .text("EPA Standard")
+    .attr('x',(width-plot_padding_right)/2.0)
+    .attr('y',yScale(.3)-5);
+}
 
 //if the same units, we want to know so we can use the same scale
 //codelist has two items and they are the same
@@ -271,6 +285,8 @@ function drawPlot(data){
   svg.selectAll(".axis").remove();
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
+  svg.selectAll("line").remove();
+  svg.selectAll("#epa").remove();
 
   if(data.length==0){
     mensaje = "<br/><br/><br/><br/><h5 class='row center checkboxtext'>No hay datos para visualizar "+
@@ -299,6 +315,7 @@ function drawPlot(data){
       drawSecondYAxis(yScale2, attr2);
       drawLines(data, xScale, yScale2, attr2);
     }
+    drawStandards(xScale,yScale)
   }
   // Different units, so keep whatever scale the unit has alone
   else if (matches.length>=1){
@@ -317,6 +334,9 @@ function drawPlot(data){
     }
     else {
       attr2 = null;
+      if (units[attr1]=="NTU") {
+        drawStandards(xScale,yScale);
+      }
     }
 
   }

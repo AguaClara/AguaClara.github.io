@@ -142,13 +142,15 @@ function getAllPlantsDict(){
 		"aga":"Agalteca", 
 		"ala":"Alauca",
 		"ati":"Atima", 
-		"ccom":"Cuatro Comunidades", 
+		"ccom":"CuatroComunidades", 
 		"doto":"Otoro", 
 		"mar1":"Marcala", 
 		"moro":"Moroceli", 
-		"smat":"San Matias", 
-		"snic":"San Nicolas", 
-		"tam":"Tamara"
+		"smat":"Matias", 
+		"snic":"SanNicolas", 
+		"tam":"Tamara",
+		"lasv":"LasVegas",
+		"sjg":"SanJuanGuarita"
 	}
 };
 
@@ -190,10 +192,12 @@ function filterExtremes(plantDataDictArray){
 		var variance = sumsq / l - mean*mean;
 		var sd = Math.sqrt(variance);
 
-		//The max NTU a turbidimeter can read is NTU so remove anything higher
- 	// 	if(Number(plantDataDictArray[i][param]) > ){
-		// 	plantDataDictArray.splice(i,1);
-		// }
+		//The max NTU a turbidimeter can read is 1100 NTU so remove anything higher
+ 	 	for (var i = 0; i<plantDataDictArray.length; ++i){
+ 	 		if(Number(plantDataDictArray[i][param]) > 1100){
+		 		plantDataDictArray.splice(i,1);
+		 	}
+		 }
 
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
 	})

@@ -178,7 +178,6 @@ function filterExtremes(plantDataDictArray){
 	var params = ['rawWaterTurbidity', 'settledWaterTurbidity', 'filteredWaterTurbidity'];
 
 
-
 	params.forEach(function(param) {
 
 		//The max NTU a turbidimeter can read is 1100 NTU so remove anything higher
@@ -188,6 +187,7 @@ function filterExtremes(plantDataDictArray){
 		 	}
 		 }
 
+		//Computations to get mean and standard deviation
 		var sum = 0;
 		var sumsq = 0;
 		var l = 1
@@ -201,8 +201,6 @@ function filterExtremes(plantDataDictArray){
 		var mean = sum/l; 		
 		var variance = sumsq / l - mean*mean;
 		var sd = Math.sqrt(variance);
-
-
 
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
 	})

@@ -177,7 +177,17 @@ function checkSanity(datum){
 function filterExtremes(plantDataDictArray){
 	var params = ['rawWaterTurbidity', 'settledWaterTurbidity', 'filteredWaterTurbidity'];
 
+
+
 	params.forEach(function(param) {
+
+		//The max NTU a turbidimeter can read is 1100 NTU so remove anything higher
+		for (var i = 0; i<plantDataDictArray.length; ++i){
+		 		if(Number(plantDataDictArray[i][param]) > 1100){
+		 		plantDataDictArray.splice(i,1);
+		 	}
+		 }
+
 		var sum = 0;
 		var sumsq = 0;
 		var l = 1
@@ -192,12 +202,7 @@ function filterExtremes(plantDataDictArray){
 		var variance = sumsq / l - mean*mean;
 		var sd = Math.sqrt(variance);
 
-		//The max NTU a turbidimeter can read is 1100 NTU so remove anything higher
- 	 	for (var i = 0; i<plantDataDictArray.length; ++i){
- 	 		if(Number(plantDataDictArray[i][param]) > 1100){
-		 		plantDataDictArray.splice(i,1);
-		 	}
-		 }
+
 
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
 	})

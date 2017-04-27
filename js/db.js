@@ -189,6 +189,12 @@ function filterExtremes(plantDataDictArray){
 		var mean = sum/l; 		
 		var variance = sumsq / l - mean*mean;
 		var sd = Math.sqrt(variance);
+
+		//The max NTU a turbidimeter can read is NTU so remove anything higher
+ 	// 	if(Number(plantDataDictArray[i][param]) > ){
+		// 	plantDataDictArray.splice(i,1);
+		// }
+
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});
 	})
 	return plantDataDictArray;

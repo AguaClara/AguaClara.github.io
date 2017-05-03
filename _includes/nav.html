@@ -1,6 +1,7 @@
 <nav role="navigation">
 	<script>
 		$(".button-collapse").sideNav();
+		$('.collapsible').collapsible();
 		var changePlant = function(d){
 			save("plantName", d);
 			window.location.href = "/index.html";
@@ -17,7 +18,7 @@
 		</ul>
 	</div>
 </nav>
-<!-- <ul id="slide-out" class="side-nav">
+<ul id="slide-out" class="side-nav">
 	<span class="hide-on-large-only">
 		{% include nav_list.html %}
 		<li><div class="divider"></div></li>
@@ -34,23 +35,4 @@
 			</li>
 		</ul>
 	</li>
-</ul> -->
-<ul id="slide-out" class="side-nav">
-      <li><a href="#!">First Sidebar Link</a></li>
-      <li><a href="#!">Second Sidebar Link</a></li>
-      <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li>
-            <a class="collapsible-header">Dropdown<i class="material-icons">arrow_drop_down</i></a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="#!">First</a></li>
-                <li><a href="#!">Second</a></li>
-                <li><a href="#!">Third</a></li>
-                <li><a href="#!">Fourth</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
+</ul>

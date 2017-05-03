@@ -42,7 +42,7 @@ $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "darken-1") !default;
 
-$navbar-footer-color: $primary-color-dark;
+$navbar-footer-color: color("grey", "darken-3");
 
 $light-text: color("shades", "white");
 $dark-text: color("shades", "black");

@@ -99,11 +99,11 @@ main {
 }
 
 .activeButton {
-	background-color: $primary-color-light;
+	background-color: lighten($primary-color-light, 10%);
 }
 
 .activeButton:hover {
-	background-color: lighten($primary-color-light, 15%);
+	background-color: lighten($primary-color-light, 20%);
 }
 
 .tabs {

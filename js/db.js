@@ -84,6 +84,8 @@ function makeDictionary(rowArray, columnArray) {
 
 // Asynchronous function to download plant data and store it locally. Input callback function. 
 // The onSuccess(data) function must take in an array of data objects.
+// in most cases onSuccess=visualize || settable. You can see this in action in the connectSyncButton and
+//   initViz functions
 // TODO: onFailure. 
 function updatePlantData(onSuccess){
 	var plantName = getPlantName();

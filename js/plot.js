@@ -57,23 +57,27 @@ var div1; //tooltip divs
 var div2;
 
 /* Create plot .........................................................*/
-var height = 350;
+var height = 350; //height and width of the SVG element that contains the plot
 var width = 500;
-var plot_padding_right = 45;
+var plot_padding_right = 45; //padding values relative to SVG boundaries
 var plot_padding_left = 45;
 var plot_padding_bottom = 72;
 var plot_padding_top = 20;
 
 /* Create and draw axes ................................................*/
-var xScale; var yScale; var xAxis; var yAxis0;
+var xScale; var yScale; var xAxis; var yAxis0; //these get populated later
 var xMin;
 var xMax;
 
-//Add togglable checkboxes to page
+/* Add togglable checkboxes to page
+ */
 function makeCheckboxes(){
   selected = "";
   var formText = "<form action='.'>";
   check = true;
+
+  //iterates through each column we want to display data for and creates checkbox for it
+  //edit the global [dataTypes] object to add or remove display options
   for(var key in dataTypes){
     val = dataTypes[key];
     formText+='<div class="cb_pad"><input type="checkbox" class="filled-in" id="'+key+'" name="dtype" value="'+key+'"';
@@ -82,24 +86,31 @@ function makeCheckboxes(){
   };
   formText += "</div></form>";
 
+  //remove what's already in this div
   $(".checkboxesForm").empty();
+  //populate it with our html
   $(".checkboxesForm").html(formText);
   return selected;
 }
 
 
-/* Sort data and redraw the plot. To be used when the localStorage is updated.
- *     
+/* Sort data and redraw the plot.
+ * Takes:    
  *   data<Object array>: 
- *     An array of plant data records returned by a query to FusionTables
+ *     An array of plant data records returned by a query to FusionTables and stored in browser's local storage
+ * 
+ * Returns:
+ *   Nothing
  */
 function visualize(data) { 
   // empty any previous plot
   $('#plot').empty();
+  //clear out dataless entries
+  data = data.filter(function(elem){return elem["purpose"] == purposeTag;});
   // sort data by type
-  data = data.filter(function(elem){return elem["purpose"] == purposeTag;}) //clear out dataless entries
   data = data.sort(sortByDateAscending);
-  dataSave = data
+  //stores data in a global variable
+  dataSave = data;
 
   colors = d3.scale.category10().domain( Object.keys(dataTypes) );
 
@@ -107,6 +118,7 @@ function visualize(data) {
   if (data.length==0){
     height=0;width=0;
   }
+  //add SVG element to plot div
   svg = d3.select("#plot").append("svg")
     .attr("id","chart")
     .attr("height", height)
@@ -123,7 +135,7 @@ function visualize(data) {
         .style("opacity", 0);
   }
 
-
+  //makeCheckboxes returns the name of the first data column
   preSelectedItem = makeCheckboxes();
   matches = [preSelectedItem];
   drawPlot(data); 
@@ -131,28 +143,41 @@ function visualize(data) {
   resize();
 }
 
-/* Sort input data by date */
+/* 
+Sort input data by date.
+Takes:
+  two strings a,b
+
+Returns:
+  a positive or negative integer
+*/
 function sortByDateAscending(a, b) {
   // Dates will be cast to numbers automagically:
   return new Date(a.timeFinished) - new Date(b.timeFinished);
 }
 
+/*
+Returns a D3 scale function that maps dates to pixel values
+*/
 makeXScale = function(data){
-  //Can take first and last because they are already sorted
+  //Earliest date in data
   xMin = new Date(data[0].timeFinished);
+  //Latest date in data
   xMax = new Date(data[data.length-1].timeFinished);
   xScale = d3.time.scale()
-    .domain([xMin, xMax])
-    .range([plot_padding_left, width-plot_padding_right]);
+    .domain([xMin, xMax]) //bounds of data
+    .range([plot_padding_left, width-plot_padding_right]); //bounds on space
   return xScale;
 }
 
 drawXAxis = function(xScale){
+  //call to D3's axis() function
   var xAxis = d3.svg.axis()
     .scale(xScale)
     .orient("bottom")
     .tickFormat(ES.timeFormat("%d %b %y"));
-    
+  
+  //add the axis to the svg, move it into place, add labels
   svg.append("g")
     .attr("class", "axis")
     .attr("transform", "translate("+0+", " + (height-plot_padding_bottom) + ")")
@@ -218,6 +243,7 @@ function drawLines(data, xScale, yScale, attr_name){
     second_attr = null;
   }*/
 
+  //call to D3's line() function. Returns a function that draws lines based on input scales and data
   var lineGen = d3.svg.line()
     .x(function(d) {
         return xScale(new Date(d.timeFinished));
@@ -247,6 +273,7 @@ function drawLines(data, xScale, yScale, attr_name){
   }  
 }
 
+//draws and labels the EPA standard. Can be modified to include other standards
 function drawStandards(xScale, yScale){
   svg.append('g').append("line")
         .style("stroke", "black")  // colour the line
@@ -278,7 +305,7 @@ function hasMaxScale(data){
   return null;
 }
 
-/* 
+/* The big one. 
  *  
  */
 function drawPlot(data){
@@ -346,6 +373,9 @@ function drawPlot(data){
   //get values
 
 }
+
+/*Plot slider functions*********************************************************************************/
+
 
 //get date object in [arr] closest to [date]
 function nearestDate(date, arr) {

@@ -1,4 +1,0 @@
-#For specifying configuration settings for Jekyll
-
-sass:
-  sass_dir: _sass

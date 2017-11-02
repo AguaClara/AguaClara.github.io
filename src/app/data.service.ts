@@ -11,7 +11,7 @@ export class DataService {
 
 	nonDataStorageItems = ["plantName", "columnData"];
 
-	encodeFusionTableSQL(sqlString : string) : string {
+	encodeFusionTableSQL(sqlString : string) {
 		var base = 'www.googleapis.com/fusiontables/v2/'
 		var initQuery = "query?sql=";
 		var url = base + initQuery + encodeURIComponent(sqlString) + this.apiKey;
@@ -19,7 +19,8 @@ export class DataService {
 	}
 
 	retrieveAllPlantData() {
-		var plantData = [];
+		// explicit type annotation, JSON.parse does not have a determined type
+		var plantData : any[] = [];
 		if (localStorage.length == 0) {
 			return plantData
 		}
@@ -28,38 +29,38 @@ export class DataService {
 			var key = localStorage.key( i );
 			if ($.inArray(key, this.nonDataStorageItems) == -1) {
 				var string = localStorage.getItem( localStorage.key( i ) );
-				// console.log(string);
 				plantData[i] = JSON.parse(string);
 			};
 		};
 		return plantData
 	}
 
-	// // Load any string from local storage.
-	// load(key) {
-	// 	return localStorage.getItem(key);
-	// }
+	// Load any string from local storage.
+	load(key:string) {
+		return localStorage.getItem(key);
+	}
 
-	// // Save any string key, value pair to local storage
-	// save(key, value) {
-	// 	localStorage.setItem(key, value);
-	// }
+	// Save any string key, value pair to local storage
+	save(key:string, value:string) {
+		localStorage.setItem(key, value);
+	}
 
-	// getColumnIndex(columnString) {
-	// 	var columnData = json_parse(localStorage.getItem('columnData'));
-	// 	return columnData.indexOf(column_string);
-	// }
+	getColumnIndex(columnString:string) {
+		var columnData = JSON.parse(localStorage.getItem('columnData'));
+		return columnData.indexOf(columnString);
+	}
 
-	// makeDictionary(rowArray, columnArray) {
-	// 	var plantDataDictArray = [];
-	// 	for ( var i = 0, rLen = rowArray.length; i < rLen; ++i ) {
-	// 		plantDataDictArray[i] = {};
-	// 		for ( var j = 0, cLen = columnArray.length; j < cLen; ++j ) {
-	// 			plantDataDictArray[i][columnArray[j]] = rowArray[i][j];
-	// 		}
-	// 	}
-	// 	return plantDataDictArray;
-	// }
+	// TODO: Confirm rowArray and columnArray are all Strings
+	makeDictionary(rowArray:string[], columnArray:string[]) {
+		var plantDataDictArray = [];
+		for ( var i = 0, rLen = rowArray.length; i < rLen; ++i ) {
+			plantDataDictArray[i] = {};
+			for ( var j = 0, cLen = columnArray.length; j < cLen; ++j ) {
+				plantDataDictArray[i][columnArray[j]] = rowArray[i][j];
+			}
+		}
+		return plantDataDictArray;
+	}
 
 	// updatePlantData(onSuccess){
 	// 	var plantName = getPlantName();

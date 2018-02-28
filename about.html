@@ -24,7 +24,7 @@
 
   <!--  Scripts-->
   <script src="js/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
+  <script src="js/bin/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/JSON-js-master/json_parse.js"></script>
   <!--D3 -->
@@ -37,14 +37,13 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/viz.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
   rel="stylesheet">
 </head>
 
 <header>
-	<nav class="light-blue lighten-1" role="navigation">
+	<nav role="navigation">
 	<script>
 		$(".button-collapse").sideNav();
 		$('.collapsible').collapsible();
@@ -53,13 +52,18 @@
 			window.location.href = "/index.html";
 		};
 	</script>
-	<div class="nav-wrapper container"><a id="logo-container" href="./index.html" class="brand-logo right" style="padding-left:30px;">POST</a>
+	<div class="nav-wrapper container">
+	<a class="right" href="./index.html"><span class="icon-POST" style="font-size:55px;vertical-align: middle"></span></a>
+		<a id="logo-container" href="./index.html" class="brand-logo right" style="padding-right: 50px">
+			POST
+		</a>
 		<ul class="left">
 			<li><a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a></li>
 			<span class="hide-on-med-and-down">
 <li ><a class="waves-effect" href="./index.html">Plants</a></li>
 <li class="active"><a class="waves-effect" href="./about.html">Quien Somos</a></li>
-<li ><a class="waves-effect" href="./post_collect_install_instructions">Instalar POST Datos</a></li></span>
+<li ><a class="waves-effect" href="./instructions">Instalar POST Datos</a></li>
+</span>
 		</ul>
 	</div>
 </nav>
@@ -68,7 +72,8 @@
 		
 <li ><a class="waves-effect" href="./index.html">Plants</a></li>
 <li class="active"><a class="waves-effect" href="./about.html">Quien Somos</a></li>
-<li ><a class="waves-effect" href="./post_collect_install_instructions">Instalar POST Datos</a></li>
+<li ><a class="waves-effect" href="./instructions">Instalar POST Datos</a></li>
+
 		<li><div class="divider"></div></li>
 	</span>
 	<li class="no-padding">
@@ -87,8 +92,8 @@
 		active = "";
 		plantNameString = "'" + plantName + "'";
 		if (currentPlant == plantName)
-			active = 'light-blue lighten-5'
-		menuHTML += '<li><button type="submit" onClick="changePlant(' + plantNameString + ')" name="changePlant" class="white plantButton waves-effect '+ active + '"' + 'value="' + plantName + '">'+plantName+'</button>';
+			active = 'activeButton'
+		menuHTML += '<li><button type="submit" onClick="changePlant(' + plantNameString + ')" name="changePlant" class="plantButton waves-effect '+ active + '"' + 'value="' + plantName + '">'+plantName+'</button>';
 	}
 	$("#plantListCollapsible").html(menuHTML);
 </script>
@@ -115,10 +120,10 @@
 		</div>
 	</main>
 
-	  <footer class="page-footer light-blue">
+	  <footer class="page-footer">
     <div class="footer-copyright">
       <div class="container">
-      Hecho por <a class="light-blue-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      Hecho por <a href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>

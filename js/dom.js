@@ -91,7 +91,7 @@ function submitRadioValues(){
 	plantCode = $('input[name="plantSelection"]:checked').val();
 	save("plantName", plantCode);
 	addCurrentChoiceHeader();
-	window.location.href = "/plotly_graph.html";
+	window.location.href = "/index.html";
 }
 
 function addPlantDropdown(){

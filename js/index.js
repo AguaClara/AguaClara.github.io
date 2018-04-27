@@ -1,7 +1,9 @@
 if (localStorage.getItem("plantName")==null){
   window.location.replace("/settings.html");
 }
-  Plotly.d3.json("https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%2014iS92Ep_8pfzwih-Hw-mn2o38_Mp31HOJ2BnI6rQ%20WHERE%20plant%3D%27" + localStorage.getItem("plantName") + "%27%20AND%20rawWaterTurbidity%20%3E%200%20ORDER%20BY%20timeFinished%20DESC%20LIMIT%20100&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM", function(err, data){
+  data_request_url = "https://www.googleapis.com/fusiontables/v2/query?sql=SELECT%20*%20FROM%201lgxjPxZ8_V6OyA0Wa19iGpuZKKn1mBf1chJOgkqU%20WHERE%20plant%3D%27" + localStorage.getItem("plantName") + "%27%20AND%20rawWaterTurbidity%20%3E%200%20ORDER%20BY%20timeFinished%20DESC%20LIMIT%20100&key=AIzaSyB4fY4TPsWMhqifu68GFq1aWREjiiAYZmo"
+  console.log('requesting data from:', data_request_url)
+  Plotly.d3.json(data_request_url, function(err, data){
 
 
 

@@ -2,14 +2,14 @@
 // provides a simple way to store two weeks worth of data. If we decide to store more, or for whatever
 // reason local storage doesn't work, perhaps we should move to a SQLite plugin within PhoneGap. TBD
 
-// TODO: Use column_string when retrieving data to ease parsing. 
+// TODO: Use column_string when retrieving data to ease parsing.
 
 // --------------------------------------Public Methods--------------------------------------------
 // Methods to be used from outside scripts. Clearly defined with easy to understand
 // pre- and post- conditions
 
-var table_id = "14iS92Ep_8pfzwih-Hw-mn2o38_Mp31HOJ2BnI6rQ"
-var api_key = "&key=AIzaSyAAWkBly-1cwH3rbyLIhoZtJAY3RUHrViM";
+var table_id = "1lgxjPxZ8_V6OyA0Wa19iGpuZKKn1mBf1chJOgkqU"
+var api_key = "&key=AIzaSyB4fY4TPsWMhqifu68GFq1aWREjiiAYZmo";
 var number_of_requested_data_points = 100;
 
 //controls the filter function. options are {"none",one_order_magnitude","two_order_magnitude","three_std","six_std","ten_std"}
@@ -21,7 +21,7 @@ var filterFunc = "six_std"
 // we should be ensuring that there are no duplicates on the server, but for now Fusion Tables doesn't support this:
 // https://code.google.com/p/fusion-tables/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Type%20Status%20Summary%20Stars%20Component&groupby=&sort=&id=490
 // and therefore we just have to update this value two times, one to figure out how many times to insert into localstorage,
-// and one to determine how many times to retrieve an item. 
+// and one to determine how many times to retrieve an item.
 var number_of_returned_data_points = 0;
 
 // These are the items that retrieveAllPlantData won't retrieve
@@ -41,7 +41,7 @@ function retrieveAllPlantData() {
 		return plantData
 	}
 	// Loop through selected localstorage held json strings
-	for ( var i = 0; i < number_of_returned_data_points; ++i ) {	
+	for ( var i = 0; i < number_of_returned_data_points; ++i ) {
 		var key = localStorage.key( i );
 		if ($.inArray(key,non_data_storage_items) == -1) {
 			var string = localStorage.getItem( localStorage.key( i ) );
@@ -68,7 +68,7 @@ function getColumnIndex(columnString) {
 	return columnData.indexOf(column_string);
 }
 
-// Put data into dictionary... Specifically make and array of rows (arrays) that have fields specified by 
+// Put data into dictionary... Specifically make and array of rows (arrays) that have fields specified by
 // column array into an array of disctionaries
 function makeDictionary(rowArray, columnArray) {
 	var plantDataDictArray = [];
@@ -82,9 +82,9 @@ function makeDictionary(rowArray, columnArray) {
 }
 
 
-// Asynchronous function to download plant data and store it locally. Input callback function. 
+// Asynchronous function to download plant data and store it locally. Input callback function.
 // The onSuccess(data) function must take in an array of data objects.
-// TODO: onFailure. 
+// TODO: onFailure.
 function updatePlantData(onSuccess){
 	var plantName = getPlantName();
 	var sql_query = "SELECT * FROM " + table_id + " WHERE plant=" + "'" + plantName + "'" + " AND rawWaterTurbidity > 0 ORDER BY timeFinished DESC LIMIT " + number_of_requested_data_points;
@@ -114,7 +114,7 @@ function updatePlantData(onSuccess){
 }
 
 // ----------------------------------------Private Methods/script------------------------------------------
-// This part of the script is used internally. 
+// This part of the script is used internally.
 
 
 // Inserts a list of plant data records into local storage
@@ -139,15 +139,15 @@ function getPlantName(){
 
 function getAllPlantsDict(){
 	return {
-		"aga":"Agalteca", 
+		"aga":"Agalteca",
 		"ala":"Alauca",
-		"ati":"Atima", 
-		"ccom":"CuatroComunidades", 
-		"doto":"Otoro", 
-		"mar1":"Marcala", 
-		"moro":"Moroceli", 
-		"smat":"Matias", 
-		"snic":"SanNicolas", 
+		"ati":"Atima",
+		"ccom":"CuatroComunidades",
+		"doto":"Otoro",
+		"mar1":"Marcala",
+		"moro":"Moroceli",
+		"smat":"Matias",
+		"snic":"SanNicolas",
 		"tam":"Tamara",
 		"lasv":"LasVegas",
 		"sjg":"SanJuanGuarita"
@@ -188,7 +188,7 @@ function filterExtremes(plantDataDictArray){
 				l += 1
 			}
 		}
-		var mean = sum/l; 		
+		var mean = sum/l;
 		var variance = sumsq / l - mean*mean;
 		var sd = Math.sqrt(variance);
 		plantDataDictArray=plantDataDictArray.filter(checkSanity,{"param":param,"mean":mean,"sd":sd});

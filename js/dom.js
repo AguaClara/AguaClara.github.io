@@ -52,7 +52,7 @@ function connectSyncButton() {
 /*Add a beautiful Materialize loading spinner to the page!*/
 function addSpinner(spinnerDest){
 	spinnerCode = ''+
-		'<div class="preloader-wrapper small active">'+ 
+		'<div class="preloader-wrapper small active">'+
           '<div class="spinner-layer spinner-green-only" >'+
             '<div class="circle-clipper left">'+
               '<div class="circle"></div>'+
@@ -96,7 +96,7 @@ function submitRadioValues(){
 
 function addPlantDropdown(){
 	allPlantsDict = getAllPlantsDict();
-	var dropdownHTML = ''; 
+	var dropdownHTML = '';
 	for(var key in allPlantsDict){
 	    plantName = allPlantsDict[key];
 	    dropdownHTML +='<p><input name="plantSelection" type="radio" id="'+plantName+'" value="'+plantName+'"';

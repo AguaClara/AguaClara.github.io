@@ -150,7 +150,11 @@ function getAllPlantsDict(){
 		"snic":"SanNicolas",
 		"tam":"Tamara",
 		"lasv":"LasVegas",
-		"sjg":"SanJuanGuarita"
+		"sjg":"SanJuanGuarita",
+		"zam":"Zamorano",
+		"ram":"LaRamada",
+		"brea":"LaBrea",
+		"manz":"Manzaragua"
 	}
 };
 
